@@ -5,7 +5,7 @@ trigger SetPrimaryContact on Opportunity (before update) {
         accountIds.add(oppAccountIds.AccountId);
     }
 
-    //Get CEO Contacts
+    //Get Contacts where Title = CEO.
     List<Contact> ceoContacts = [
         SELECT Id, Title, AccountId
         FROM Contact
