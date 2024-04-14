@@ -4,7 +4,7 @@
 */
 
 public with sharing class AccountTriggerHelper {
-    public static void setAccountTypeToProspect(List<Account> newAccounts) {
+    public static void SetAccountTypeToProspect(List<Account> newAccounts) {
 
         // Set the account type to prospect
         for(Account acct : newAccounts) {
