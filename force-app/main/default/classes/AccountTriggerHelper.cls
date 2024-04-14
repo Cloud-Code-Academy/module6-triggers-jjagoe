@@ -53,8 +53,6 @@ public with sharing class AccountTriggerHelper {
         newContacts.add(newContact);
         }
        // Insert the new contacts
-       Database.DMLOptions dml = new Database.DMLOptions();
-       dml.DuplicateRuleHeader.AllowSave = true;
-       Database.insert(newContacts, dml);
+        Database.insert(newContacts, AccessLevel.USER_MODE);
     }
 }
