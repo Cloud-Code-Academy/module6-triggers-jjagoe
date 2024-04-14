@@ -4,7 +4,7 @@
 */
 
 public with sharing class AccountTriggerHelper {
-    public static void SetAccountTypeToProspect(List<Account> newAccounts) {
+    public static void beforeInsert(List<Account> newAccounts) {
 
         // Set the account type to prospect
         for(Account acct : newAccounts) {
@@ -12,10 +12,8 @@ public with sharing class AccountTriggerHelper {
                 acct.Type = 'Prospect';
             }
         }
-    }
     
-    public static void CopyShippingAddressToBilling(List<Account> newAccounts) {
-
+    
         // Copy the shipping address to the billing address.
         for(Account account : newAccounts) {
             //Use null-coalescing operator ??, which returns the left-hand operand if it's not null, 
@@ -26,10 +24,7 @@ public with sharing class AccountTriggerHelper {
             account.BillingPostalCode = account.ShippingPostalCode ?? '';
             account.BillingCountry = account.ShippingCountry ?? '';
         }
-    }
-
-    public static void SetAccountRating(List<Account> newAccounts) {
-
+   
         // Copy the shipping address to the billing address.
         for(Account account : newAccounts) {
             if(account.Fax != null && account.Phone != null && account.Website != null){
@@ -38,21 +33,22 @@ public with sharing class AccountTriggerHelper {
         }
     }
 
-    public static void CreateDefaultContact(List<Account> newAccounts) {
+    public static void afterInsert(List<Account> newAccounts) {
 
        // List to hold the new contacts to be inserted
          List<Contact> newContacts = new List<Contact>();
         for(Account acc : newAccounts) {
             // Create a new contact with default values
-            Contact newContact = new Contact(
-            LastName = 'DefaultContact',
-            Email = 'default@email.com',
-            AccountId = acc.Id // Set the AccountId to relate the contact to the account
-        );
-        // Add the new contact to the list
-        newContacts.add(newContact);
+            newContacts.add(new Contact(LastName = 'DefaultContact', Email = 'default@email.com', AccountId = acc.Id));
+          
         }
+       
        // Insert the new contacts
-        Database.insert(newContacts, AccessLevel.USER_MODE);
+        Database.DMLOptions dml = new Database.DMLOptions();
+        dml.DuplicateRuleHeader.AllowSave = true;
+        dml.DuplicateRuleHeader.RunAsCurrentUser = true;
+        Database.insert(newContacts, dml);
+      }
     }
-}
+    
+    
