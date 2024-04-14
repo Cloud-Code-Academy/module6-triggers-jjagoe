@@ -16,7 +16,7 @@ public with sharing class OpportunityTriggerHelper {
         }
     }
 
-    public static void SetPrimaryContact(List<Opportunity> opps, Map<Id, Contact> ceoContacts) {
+  /*  public static void SetPrimaryContact(List<Opportunity> opps, Map<Id, Contact> ceoContacts) {
 
         //Set the primary contact on the opportunity to the contact with the title of CEO.
         for (Opportunity opp : opps) {
@@ -46,5 +46,5 @@ public with sharing class OpportunityTriggerHelper {
                 oldOpp.addError('Cannot delete closed opportunity for a banking account that is won');
             }
         }
-    }
+    }*/
 }
