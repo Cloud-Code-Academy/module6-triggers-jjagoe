@@ -40,8 +40,6 @@ public with sharing class AccountTriggerHelper {
 
     public static void CreateDefaultContact(List<Account> newAccounts) {
 
-        // Create a contact for each account inserted
-       // List<Contact> contactsToInsert = new List<Contact>();
        // List to hold the new contacts to be inserted
          List<Contact> newContacts = new List<Contact>();
         for(Account acc : newAccounts) {
