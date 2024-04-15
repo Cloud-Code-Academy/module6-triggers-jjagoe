@@ -36,7 +36,7 @@ public with sharing class AccountTriggerHelper {
     public static void afterInsert(List<Account> newAccounts) {
 
        // List to hold the new contacts to be inserted
-         List<Contact> newContacts = new List<Contact>();
+        List<Contact> newContacts = new List<Contact>();
         for(Account acc : newAccounts) {
             // Create a new contact with default values
             newContacts.add(new Contact(LastName = 'DefaultContact', Email = 'default@email.com', AccountId = acc.Id));
